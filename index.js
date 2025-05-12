@@ -6,8 +6,9 @@ const port=process.env.PROT || 3000;
 
 
 app.use(cors());
+app.use(express.json());
 
-user=[
+users=[
   {
     "id": 1,
     "name": "Alice Johnson",
@@ -43,6 +44,15 @@ app.get("/",(req,res)=>{
 
 app.get("/users",(req,res)=>{
     res.send(user);
+})
+
+app.post("/users",(req,res)=>{
+    console.log('user post method');
+    const newUser=req.body;
+    newUser.id=users.length + 1;
+    users.push(newUser)
+    res.send(newUser);
+    console.log(req.body)
 })
 
 app.listen(port,()=>{
